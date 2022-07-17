@@ -1,17 +1,18 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'dang_ky.dart';
+
+import 'dang_nhap.dart';
 
 void main() {
   runApp(const MaterialApp(
     title: 'Navigation Basics',
-    home: DangNhapWidget(),
+    home: DangKyWidget(),
   ));
 }
 
-class DangNhapWidget extends StatelessWidget {
-  const DangNhapWidget({Key? key}) : super(key: key);
+class DangKyWidget extends StatelessWidget {
+  const DangKyWidget({Key? key}) : super(key: key);
   // https://starcity.vinhomes.vn/wp-content/themes/vh-star-villas/assets/images/logo-footer.png
   //Đăng ký đăng nhập
   Widget build(BuildContext context) {
@@ -24,8 +25,36 @@ class DangNhapWidget extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              //tạo nút ấn hình mũi tên phía bên trái để quay lại
+              //SizedBox(
+              //   width: double.infinity,
+              //   height: 60,
+              //   child: FlatButton(
+              //     onPressed: () {
+              //       Navigator.pop(context);
+              //     },
+              //     child: const Icon(
+              //       Icons.arrow_back,
+              //       color: Colors.black,
+              //     ),
+              //   ),
+              // ),
+              SizedBox(
+                height: 60,
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
               const SizedBox(
-                height: 120,
+                height: 0,
               ),
               Container(
                 width: 180,
@@ -37,9 +66,15 @@ class DangNhapWidget extends StatelessWidget {
                       fit: BoxFit.fill),
                 ),
               ),
-              //Đănng nhập bằng sdt và mật khẩu
+              //Đăng ký bằng họ và tên, sdt và mật khẩu
               const SizedBox(
                 height: 60,
+              ),
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Họ và tên',
+                  prefixIcon: Icon(Icons.person),
+                ),
               ),
               const TextField(
                 decoration: InputDecoration(
@@ -53,32 +88,22 @@ class DangNhapWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DangKyWidget(),
-                        ),
-                      );
-                    },
-                    color: Colors.white,
-                    child: const Text('Đăng ký'),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  RaisedButton(
-                    onPressed: () {},
-                    color: Colors.blue,
-                    child: const Text('Đăng nhập'),
-                  ),
-                  //hotline: 1800.1186(Richtext)
-                ],
+
+              //nút đang ký nền màu xanh lá, chữ in hoa mày trắng
+              RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DangNhapWidget(),
+                    ),
+                  );
+                },
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: const Text('Đăng ký'),
               ),
+              //hotline: 1800.1186(Richtext)
               const SizedBox(
                 height: 100,
               ),

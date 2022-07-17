@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main(List<String> args) {
-  String s = 'Hello World';
-  String s1 = "hello world";
+void main() {
   runApp(const MyApp());
 }
 
