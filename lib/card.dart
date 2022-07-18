@@ -39,37 +39,74 @@ class _CardSwipeState extends State<CardSwipe> {
       ),
 
       body: Container(
-        child: GridView.builder(
-          itemCount: 6,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              width: 500,
+              height: 600,
+              child: GridView.builder(
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        //mở card
+
+                        if (locked == true) {
+                          return;
+                        } else {
+                          opened[index] = true;
+                          if (choiced == '') {
+                            choiced = cardPic[index];
+                          } else {
+                            if (choiced[1] != cardPic[index][1]) {
+                              locked = true;
+                              Future.delayed(const Duration(microseconds: 500),
+                                  () {
+                                locked = false;
+                              });
+                              print("locked");
+                              choiced = '';
+
+                              opened = [
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false
+                              ];
+                            } else {
+                              choiced = '';
+                            }
+                          }
+                        }
+                      });
+                    },
+                    child: renderItem(index),
+                  );
+                },
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.0,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                ),
+              ),
+            ),
+            RaisedButton(
+              child: Text('Reset'),
+              onPressed: () {
                 setState(() {
-                  //kiểm tra cat, dog, chicken s
-                  if (choiced != '') {
-                    locked = true;
-                  }
-                  //mở card
-                  if (locked = true)
-                    return;
-                  else {
-                    opened[index] = true;
-                    choiced = cardPic[index];
-                  }
-                  Future.delayed(Duration(seconds: 2), () {
-                    locked = false;
-                  });
+                  opened = [false, false, false, false, false, false];
+                  choiced = '';
+                  locked = false;
+                  cardPic.shuffle();
                 });
               },
-              child: renderItem(index),
-            );
-          },
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 10.0,
-            mainAxisSpacing: 10.0,
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -85,7 +122,6 @@ class FlashCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('$title');
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
