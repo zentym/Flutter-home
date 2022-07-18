@@ -12,7 +12,7 @@ class _CardSwipeState extends State<CardSwipe> {
   var choiced = '';
   //mảng chứa các card
   var opened = [false, false, false, false, false, false];
-
+  var reset = 0;
   var am = {
     'cat': ['cat1', 'cat2'],
     'dog': ['dog1', 'dog2'],
@@ -50,39 +50,39 @@ class _CardSwipeState extends State<CardSwipe> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      setState(() {
-                        //mở card
+                      setState(
+                        () {
+                          //mở card
 
-                        if (locked == true) {
-                          return;
-                        } else {
-                          opened[index] = true;
-                          if (choiced == '') {
-                            choiced = cardPic[index];
-                          } else {
-                            if (choiced[1] != cardPic[index][1]) {
-                              locked = true;
-                              Future.delayed(const Duration(microseconds: 500),
-                                  () {
-                                locked = false;
-                              });
-                              print("locked");
-                              choiced = '';
-
-                              opened = [
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false
-                              ];
+                          //chờ cho đến khi khóa
+                          if (reset == 0) {
+                            if (locked == true) {
+                              return;
                             } else {
-                              choiced = '';
+                              opened[index] = true;
+                              if (choiced == '') {
+                                choiced = cardPic[index];
+                              } else {
+                                if (choiced[1] != cardPic[index][1]) {
+                                  locked = true;
+                                  reset = 1;
+                                  Future.delayed(
+                                      const Duration(microseconds: 500), () {
+                                    locked = false;
+                                  });
+                                  print("locked");
+                                  choiced = '';
+                                } else {
+                                  choiced = '';
+                                }
+                              }
                             }
+                          } else {
+                            reset = 0;
+                            opened = [false, false, false, false, false, false];
                           }
-                        }
-                      });
+                        },
+                      );
                     },
                     child: renderItem(index),
                   );

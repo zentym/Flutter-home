@@ -27,7 +27,6 @@ class CoVua extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(8),
-              width: 500,
               height: 500,
               child: GridView.count(
                 crossAxisCount: 8,
