@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:hello_world/prac1.dart';
 
 class hocvien {
   String ten;
