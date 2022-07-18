@@ -20,33 +20,27 @@ class CoVua extends StatelessWidget {
       //tạo bàn cờ vua 64 ô trắng đen xen kẽ
       body: Container(
         color: Colors.grey,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 150,
+        alignment: Alignment.center,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          height: 500,
+          child: GridView.count(
+            crossAxisCount: 8,
+            children: List.generate(
+              64,
+              (index) {
+                if ((index + (index / 8).floor()) % 2 == 0) {
+                  return Container(
+                    color: Colors.black,
+                  );
+                } else {
+                  return Container(
+                    color: Colors.white,
+                  );
+                }
+              },
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              height: 500,
-              child: GridView.count(
-                crossAxisCount: 8,
-                children: List.generate(
-                  64,
-                  (index) {
-                    if ((index + (index / 8).floor()) % 2 == 0) {
-                      return Container(
-                        color: Colors.black,
-                      );
-                    } else {
-                      return Container(
-                        color: Colors.white,
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
